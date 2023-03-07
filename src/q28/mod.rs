@@ -43,18 +43,20 @@ impl Solution {
         -1
     }
 
-    // TODO
-    fn str_str1(haystack: String, needle: String) {
-        let (m, n) = (needle.len(), haystack.len());
-        let (m_chars, n_chars): (Vec<char>, Vec<char>) =
-            (needle.chars().collect(), haystack.chars().collect());
-
+    // Knuth-Morris-Pratt Algorithm (KMP)
+    fn str_str1(haystack: String, needle: String) -> i32 {
+        let m = needle.len();
+        if m > haystack.len() {
+            return -1;
+        }
+        let m_chars: Vec<char> = needle.chars().collect();
         let mut lps = vec![0; m];
-        let (mut prev, mut i): (usize, usize) = (0, 1);
+        let mut prev = 0;
+        let mut i = 0;
         while i < m {
             if m_chars[i] == m_chars[prev] {
+                lps[i] = prev + 1;
                 prev += 1;
-                lps[i] = prev;
                 i += 1;
             } else if prev == 0 {
                 lps[i] = 0;
@@ -63,25 +65,43 @@ impl Solution {
                 prev = lps[prev - 1];
             }
         }
+
+        let mut i = 0;
+        let mut j = 0;
+        let n_chars: Vec<char> = haystack.chars().collect();
+        while i < haystack.len() {
+            if n_chars[i] == m_chars[j] {
+                i += 1;
+                j += 1;
+                if j == m {
+                    return (i - m) as i32;
+                }
+            } else if j == 0 {
+                i += 1;
+            } else {
+                j = lps[j - 1];
+            }
+        }
+        -1
     }
 }
 
 #[test]
 fn test() {
     assert_eq!(
-        Solution::str_str(String::from("sadbutsad"), String::from("sad")),
+        Solution::str_str1(String::from("sadbutsad"), String::from("sad")),
         0
     );
     assert_eq!(
-        Solution::str_str(String::from("leetcode"), String::from("leeto")),
+        Solution::str_str1(String::from("leetcode"), String::from("leeto")),
         -1
     );
     assert_eq!(
-        Solution::str_str(String::from("hello"), String::from("ll")),
+        Solution::str_str1(String::from("hello"), String::from("ll")),
         2
     );
     assert_eq!(
-        Solution::str_str(String::from("aaa"), String::from("aaaa")),
+        Solution::str_str1(String::from("aaa"), String::from("aaaa")),
         -1
     );
 }
