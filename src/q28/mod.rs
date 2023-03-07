@@ -42,6 +42,28 @@ impl Solution {
         }
         -1
     }
+
+    // TODO
+    fn str_str1(haystack: String, needle: String) {
+        let (m, n) = (needle.len(), haystack.len());
+        let (m_chars, n_chars): (Vec<char>, Vec<char>) =
+            (needle.chars().collect(), haystack.chars().collect());
+
+        let mut lps = vec![0; m];
+        let (mut prev, mut i): (usize, usize) = (0, 1);
+        while i < m {
+            if m_chars[i] == m_chars[prev] {
+                prev += 1;
+                lps[i] = prev;
+                i += 1;
+            } else if prev == 0 {
+                lps[i] = 0;
+                i += 1;
+            } else {
+                prev = lps[prev - 1];
+            }
+        }
+    }
 }
 
 #[test]
