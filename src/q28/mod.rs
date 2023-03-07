@@ -52,7 +52,7 @@ impl Solution {
         let m_chars: Vec<char> = needle.chars().collect();
         let mut lps = vec![0; m];
         let mut prev = 0;
-        let mut i = 0;
+        let mut i = 1;
         while i < m {
             if m_chars[i] == m_chars[prev] {
                 lps[i] = prev + 1;
