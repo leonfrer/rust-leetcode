@@ -6,3 +6,4 @@ mod q502;
 mod q652;
 mod q912;
 mod q2444;
+mod q1345;
