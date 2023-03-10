@@ -5,6 +5,7 @@ mod q200;
 mod q2187;
 mod q2444;
 mod q28;
+mod q382;
 mod q443;
 mod q502;
 mod q652;
