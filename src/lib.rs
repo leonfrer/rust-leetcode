@@ -1,3 +1,4 @@
+mod q101;
 mod q121;
 mod q1345;
 mod q1539;
@@ -13,3 +14,4 @@ mod q652;
 mod q733;
 mod q912;
 mod q958;
+mod q1254;
